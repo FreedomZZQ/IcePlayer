@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{19b1c6b7-533f-438a-be7b-d8769cfbfd9e}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{7fd23732-ed94-4132-83a2-c062d3ddf4cc}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_iceplayer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_iceplayer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_iceButton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_iceButton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_icelabel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_icelabel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_icevolbutton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_icevolbutton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_lyric.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_lyric.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mini.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mini.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="iceButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="icelabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="iceplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="icevolbutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lyric.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mini.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="nofocusdelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_iceplayer.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_single_application.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_single_application.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="single_application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_aboutform.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_aboutform.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="aboutform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_network.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_network.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_icelrc.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_icelrc.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="icelrc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="iceplayer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="iceButton.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="icelabel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="icevolbutton.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="lyric.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="mini.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="iceplayer.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="single_application.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="aboutform.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="network.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="icelrc.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="nofocusdelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="songinfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\full.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\logo-16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\logo-32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\logo-48.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\lyric.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\mini.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\mini底部窗口（2）.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\播放按钮mini.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\播放按钮-主界面.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\播放按钮-主界面2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\播放模式.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\播放模式2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\歌词按钮.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\歌词按钮2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\关闭按钮.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\关闭按钮2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\迷你模式按钮.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\迷你模式按钮2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\上一曲.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\上一曲2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\缩小按钮.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\缩小按钮2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\添加歌曲.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\添加歌曲2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\下一曲.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\下一曲2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\音量调节.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\音量调节2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\暂停按钮mini.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\暂停按钮-主界面.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\暂停按钮-主界面2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\左上角logo按钮.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\左上角logo按钮2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\前进按钮mini.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\about.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IcePlayer.rc" />
+  </ItemGroup>
+</Project>

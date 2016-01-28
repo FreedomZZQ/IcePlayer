@@ -1,0 +1,42 @@
+<RCC>
+    <qresource prefix="/IcePlayer">
+        <file>Resources/background.png</file>
+        <file>Resources/full.png</file>
+        <file>Resources/logo-16.png</file>
+        <file>Resources/logo-32.png</file>
+        <file>Resources/logo-48.png</file>
+        <file>Resources/lyric.png</file>
+        <file>Resources/mini.png</file>
+        <file>Resources/mini底部窗口（2）.png</file>
+        <file>Resources/播放按钮mini.png</file>
+        <file>Resources/播放按钮-主界面.png</file>
+        <file>Resources/播放按钮-主界面2.png</file>
+        <file>Resources/播放模式.png</file>
+        <file>Resources/播放模式2.png</file>
+        <file>Resources/歌词按钮.png</file>
+        <file>Resources/歌词按钮2.png</file>
+        <file>Resources/关闭按钮.png</file>
+        <file>Resources/关闭按钮2.png</file>
+        <file>Resources/迷你模式按钮.png</file>
+        <file>Resources/迷你模式按钮2.png</file>
+        <file>Resources/上一曲.png</file>
+        <file>Resources/上一曲2.png</file>
+        <file>Resources/缩小按钮.png</file>
+        <file>Resources/缩小按钮2.png</file>
+        <file>Resources/添加歌曲.png</file>
+        <file>Resources/添加歌曲2.png</file>
+        <file>Resources/下一曲.png</file>
+        <file>Resources/下一曲2.png</file>
+        <file>Resources/音量调节.png</file>
+        <file>Resources/音量调节2.png</file>
+        <file>Resources/暂停按钮mini.png</file>
+        <file>Resources/暂停按钮-主界面.png</file>
+        <file>Resources/暂停按钮-主界面2.png</file>
+        <file>Resources/左上角logo按钮.png</file>
+        <file>Resources/左上角logo按钮2.png</file>
+        <file>Resources/前进按钮mini.png</file>
+        <file>Resources/about.png</file>
+        <file>Resources/default_album.jpg</file>
+        <file>Resources/lrc_background.png</file>
+    </qresource>
+</RCC>
