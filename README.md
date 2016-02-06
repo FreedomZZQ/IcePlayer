@@ -25,3 +25,6 @@ A Music Player using QT5 and VS2013
 修正播放列表中显示”失效“的状态无法自动解除的问题  
 修正桌面歌词有时会串词的问题  
 修正迷你模式下有时播放按钮状态跟主界面不一致的问题  
+### 下载地址：
+（免安装绿色版）百度云盘下载链接：[http://pan.baidu.com/s/1o6if5xS](http://pan.baidu.com/s/1o6if5xS) 密码：tjfi  
+
