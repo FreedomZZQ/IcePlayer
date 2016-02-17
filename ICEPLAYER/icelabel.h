@@ -5,32 +5,32 @@
 
 class IceLabel : public QLabel
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	explicit IceLabel(QWidget *parent=0);
-	~IceLabel();
+    explicit IceLabel(QWidget *parent=0);
+    ~IceLabel();
 
-	//ÉèÖÃÎÄ±¾:
-	//Èç¹ûmsÎª0ÔòÎÄ×Ö²»¹ö¶¯(Ä¬ÈÏ²»¹ö¶¯);
-	//Èç¹ûµ÷ÓÃsetText()ÎÄ×Ö½«²»¹ö¶¯(ÓëÊ¹ÓÃQLabelÏàÍ¬);
-	void ICE_Set_Text(const QString &context=0, const int &ms=0);
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½:
+    //ï¿½ï¿½ï¿½ï¿½msÎª0ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½(Ä¬ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½);
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½setText()ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ê¹ï¿½ï¿½QLabelï¿½ï¿½Í¬);
+    void ICE_Set_Text(const QString &context=0, const int &ms=0);
 
-	//Í£Ö¹¹ö¶¯
-	void ICE_Stop();
+    //Í£Ö¹ï¿½ï¿½ï¿½ï¿½
+    void ICE_Stop();
 
 private slots:
-	
-	void ice_time_out();
+
+    void ice_time_out();
 
 private:
 
-	void ice_init(int ms = 0);
+    void ice_init(int ms = 0);
 
-	QString mContext;
-	QTimer *mTimer;
-	
-	int mMs;
-	int mPos;
+    QString mContext;
+    QTimer *mTimer;
+
+    int mMs;
+    int mPos;
 };
 
 #endif

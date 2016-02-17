@@ -1,61 +1,61 @@
 #include "icelrc.h"
 
-ICE_Lrc::ICE_Lrc(QWidget *parent /* = 0 */)
-:QWidget(parent)
+ICE_Lrc::ICE_Lrc(movableWindow *parent /* = 0 */)
+:movableWindow(parent)
 {
-	lrcLabel = NULL;
+    lrcLabel = NULL;
 
-	//ÎÞ±ß½çµÄ´°¿Ú,×ÜÔÚ×îÉÏ
-	setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
-	//È¥³ý´°ÌåÔ­±³¾°
-	setAttribute(Qt::WA_TranslucentBackground);
-	//´°¿ÚÍÏ¶¯
-	QWidgetResizeHandler *movewin = new QWidgetResizeHandler(this);
-	movewin->setMovingEnabled(true);
-	//¹Ì¶¨´óÐ¡
-	this->setFixedSize(800, 80);
+    //ï¿½Þ±ß½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
+    //È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½
+    setAttribute(Qt::WA_TranslucentBackground);
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
+    //QWidgetResizeHandler *movewin = new QWidgetResizeHandler(this);
+    //movewin->setMovingEnabled(true);
+    //ï¿½Ì¶ï¿½ï¿½ï¿½Ð¡
+    this->setFixedSize(800, 80);
 
-	lrcLabel = new ICE_Lrc_Label(this);
-	lrcLabel->setGeometry(QRect(0, 6, 800, 60));
+    lrcLabel = new ICE_Lrc_Label(this);
+    lrcLabel->setGeometry(QRect(0, 6, 800, 60));
 }
 
 ICE_Lrc::~ICE_Lrc()
 {
-	if (lrcLabel != NULL)
-		delete lrcLabel;
+    if (lrcLabel != NULL)
+        delete lrcLabel;
 }
 
 void ICE_Lrc::paintEvent(QPaintEvent *event)
 {
-	QPainter p(this);
-	p.drawPixmap(0, 0, QPixmap(":/IcePlayer/Resources/lrc_background.png"));
+    QPainter p(this);
+    p.drawPixmap(0, 0, QPixmap(":/Resources/lrc_background.png"));
 }
 
 void ICE_Lrc::ICE_Start_Lrc_Mask(qint64 intervaltime)
 {
-	lrcLabel->ICE_Start_Lrc_Mask(intervaltime);
+    lrcLabel->ICE_Start_Lrc_Mask(intervaltime);
 }
 
 void ICE_Lrc::ICE_Stop_Lrc_Mask()
 {
-	lrcLabel->ICE_Stop_Lrc_Mask();
+    lrcLabel->ICE_Stop_Lrc_Mask();
 }
 
 QString ICE_Lrc::text() const
 {
-	return lrcLabel->text();
+    return lrcLabel->text();
 }
 
-void ICE_Lrc::setText(QString &t)
+void ICE_Lrc::setText(QString /*&*/t)
 {
-	//if (t.size() > 35){
-	//	lrcLabel->ICE_Set_Size(25);
-	//	lrcLabel->setText(t);
-	//}
-	//else{
-	//	lrcLabel->ICE_Set_Size(30);
-	//	lrcLabel->setText(t);
-	//}
+    //if (t.size() > 35){
+    //	lrcLabel->ICE_Set_Size(25);
+    //	lrcLabel->setText(t);
+    //}
+    //else{
+    //	lrcLabel->ICE_Set_Size(30);
+    //	lrcLabel->setText(t);
+    //}
 
-	lrcLabel->setText(t);
+    lrcLabel->setText(t);
 }

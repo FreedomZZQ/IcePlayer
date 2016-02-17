@@ -1,60 +1,83 @@
 #include "aboutform.h"
-
+#include "iceButton.h"
+#include <QPushButton>
+//#include <qwidgetresizehandler_p.h>
+#include <QIcon>
+#include <QPalette>
+#include <QPixmap>
+#include <QApplication>
+#include <QtGui>
 
 ICE_About_Form::ICE_About_Form(QWidget *parent /* = 0 */)
 {
-	exitButton = new ICE_Ice_Button(this);
-	exitButton->setObjectName(QStringLiteral("exitButton"));
-	exitButton->setGeometry(QRect(255, 12, 30, 30));
-	QIcon icon_exit, icon_exit_focus;
-	icon_exit.addFile(QStringLiteral(":/IcePlayer/Resources/关闭按钮.png"), QSize(), QIcon::Normal, QIcon::Off);
-	icon_exit_focus.addFile(QStringLiteral(":/IcePlayer/Resources/关闭按钮2.png"), QSize(), QIcon::Normal, QIcon::Off);
-	exitButton->ICE_Set_Button_Icons(icon_exit, icon_exit_focus);
+    exitButton = new ICE_Ice_Button(this);
+    exitButton->setObjectName(QStringLiteral("exitButton"));
+    exitButton->setGeometry(QRect(255, 12, 30, 30));
+    QIcon icon_exit, icon_exit_focus;
+    icon_exit.addFile(QStringLiteral(":/Resources/鍏抽棴鎸夐挳.png"), QSize(), QIcon::Normal, QIcon::Off);
+    icon_exit_focus.addFile(QStringLiteral(":/Resources/鍏抽棴鎸夐挳2.png"), QSize(), QIcon::Normal, QIcon::Off);
+    exitButton->ICE_Set_Button_Icons(icon_exit, icon_exit_focus);
 
-	exitButton->setIconSize(QSize(20,20));
-	exitButton->setFlat(true);
-	exitButton->setFocusPolicy(Qt::NoFocus);
-	exitButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);border-style:solid;border-width:0px;border-color:rgba(255,255,255,0);}");
+    exitButton->setIconSize(QSize(20,20));
+    exitButton->setFlat(true);
+    exitButton->setFocusPolicy(Qt::NoFocus);
+    exitButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);border-style:solid;border-width:0px;border-color:rgba(255,255,255,0);}");
+    connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
-	connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
-	
-	//去除标题栏
-	this->setWindowFlags(Qt::FramelessWindowHint);
-	
-	//设置窗体背景色
-	/*QColor background(217, 227, 236);
 
-	QPalette win_palette(this->palette());
-	win_palette.setColor(QPalette::Background, background);
-	this->setPalette(win_palette);*/
+    this->setWindowFlags(Qt::FramelessWindowHint);
+    setAttribute(Qt::WA_TranslucentBackground);
+    this->setWindowOpacity(0.9);
 
-	//设置窗体背景透明，配合paintEvent设置不规则背景图
-	setAttribute(Qt::WA_TranslucentBackground);
-
-	//半透明
-	this->setWindowOpacity(0.9);
-
-	//窗口拖动
-	QWidgetResizeHandler *movewin = new QWidgetResizeHandler(this);
-	movewin->setMovingEnabled(true);
-
-	//固定大小
-	this->setFixedSize(300, 400);
-
-	//设置本窗口为模式窗口（即弹出后无法点击主界面）
-	this->setModal(true);
-
+    this->setFixedSize(300, 400);
+    //this->setModal(true);
 
 }
 
 void ICE_About_Form::paintEvent(QPaintEvent *event)
 {
-	QPainter p(this);
-	p.drawPixmap(0, 0 , QPixmap(":/IcePlayer/Resources/about.png"));
+    QPainter p(this);
+    p.drawPixmap(0, 0 , QPixmap(":/Resources/about.png"));
 }
+
 
 ICE_About_Form::~ICE_About_Form()
 {
 
 }
+/*
+void ICE_About_Form::mousePressEvent(QMouseEvent *event)
+{
+    qDebug() << "clicked";
+    if (event->button() == Qt::LeftButton) {
+        this->m_drag = true;
+        this->dragPos = event->pos();
+    }
+}
+void ICE_About_Form::mouseMoveEvent(QMouseEvent * event)
+{
+    qDebug() << "clicked";
+    if(m_move) {
+        move(event->globalPos() - dragPos);
+        return;
+    }
+    setCursor(Qt::ArrowCursor);
+    if (m_drag && (event->buttons() & Qt::LeftButton)) {
+       m_move = true;
+       move(event->globalPos() - dragPos);
+    }
+}
+void ICE_About_Form::mouseReleaseEvent(QMouseEvent *event)
+{
+    qDebug() << "clicked";
+    m_drag = false;
+    if(m_move) {
+        m_move = false;
+    }
+    setCursor(Qt::ArrowCursor);
+}
+
+*/
+
+
 

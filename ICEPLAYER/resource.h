@@ -1,10 +1,11 @@
+
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ Éú³ÉµÄ°üº¬ÎÄ¼þ¡£
-// ¹© IcePlayer.rc Ê¹ÓÃ
+// Microsoft Visual C++ ï¿½ï¿½ï¿½ÉµÄ°ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+// ï¿½ï¿½ IcePlayer.rc Ê¹ï¿½ï¿½
 //
 
 // Next default values for new objects
-// 
+//
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        101

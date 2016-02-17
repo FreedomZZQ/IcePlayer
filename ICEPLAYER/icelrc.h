@@ -2,31 +2,29 @@
 #define ICE_LRC_H
 
 #include <QtWidgets>
-#include <qwidgetresizehandler_p.h>
 #include "lyric.h"
-
-class ICE_Lrc : public QWidget{
-	Q_OBJECT
+#include "movablewindow.h"
+class ICE_Lrc : public movableWindow{
+    Q_OBJECT
 
 public:
-	ICE_Lrc(QWidget *parent = 0);
-	~ICE_Lrc();
+    ICE_Lrc(movableWindow *parent = 0);
+    ~ICE_Lrc();
 
-	//¿ªÊ¼¸è´ÊÕÚÕÖ
-	void ICE_Start_Lrc_Mask(qint64 intervaltime);
+    //Â¿ÂªÃŠÂ¼Â¸Ã¨Â´ÃŠÆ Ãš
+    void ICE_Start_Lrc_Mask(qint64 intervaltime);
 
-	//Í£Ö¹¸è´ÊÕÚÕÖ
-	void ICE_Stop_Lrc_Mask();
+    void ICE_Stop_Lrc_Mask();
 
-	QString text() const;
+    QString text() const;
 
-	void setText(QString &t);
-	
+    void setText(QString /*&*/t);
+
 private:
 
-	void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event);
 
-	ICE_Lrc_Label *lrcLabel;
+    ICE_Lrc_Label *lrcLabel;
 
 };
 

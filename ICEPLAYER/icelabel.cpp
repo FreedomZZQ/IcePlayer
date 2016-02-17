@@ -3,67 +3,67 @@
 IceLabel::IceLabel(QWidget *parent)
 :QLabel(parent)
 {
-	ice_init();
+    ice_init();
 }
 
 IceLabel::~IceLabel()
 {
-	ICE_Stop();
+    ICE_Stop();
 }
 
 void IceLabel::ICE_Stop()
 {
-	if (mTimer){
-		if (mTimer->isActive()){
-			mTimer->stop();
-		}
-		delete mTimer;
-		mTimer = NULL;
-	}
+    if (mTimer){
+        if (mTimer->isActive()){
+            mTimer->stop();
+        }
+        delete mTimer;
+        mTimer = NULL;
+    }
 }
 
 void IceLabel::ice_init(int ms)
 {
-	mTimer = NULL;
-	mMs = ms;
-	mContext = "";
-	mPos = 0;
+    mTimer = NULL;
+    mMs = ms;
+    mContext = "";
+    mPos = 0;
 }
 
 void IceLabel::ICE_Set_Text(const QString &context, const int &ms)
 {
-	bool b=false;
+    bool b=false;
 
-	mContext = context;
-	mMs = ms;
+    mContext = context;
+    mMs = ms;
 
-	if (mMs != 0)
-	{
-		if (mTimer == NULL)
-		{
-			mTimer = new QTimer(this);
+    if (mMs != 0)
+    {
+        if (mTimer == NULL)
+        {
+            mTimer = new QTimer(this);
 
-			if (mTimer)
-			{
-				b = connect(mTimer, SIGNAL(timeout()), this, SLOT(ice_time_out()));
-				mTimer->start(mMs);
-			}
-		}
-	}
+            if (mTimer)
+            {
+                b = connect(mTimer, SIGNAL(timeout()), this, SLOT(ice_time_out()));
+                mTimer->start(mMs);
+            }
+        }
+    }
 }
 
 void IceLabel::ice_time_out()
 {
-	
-	QString str="";
 
-	if (mPos > mContext.count())
-	{
-		mPos = 0;
-	}
+    QString str="";
 
-	str = mContext.mid(mPos);
-			
-	setText(str);
-	mPos++;
+    if (mPos > mContext.count())
+    {
+        mPos = 0;
+    }
+
+    str = mContext.mid(mPos);
+
+    setText(str);
+    mPos++;
 }
