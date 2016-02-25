@@ -1,0 +1,172 @@
+#include "icesearch.h"
+#include "songdelegate.h"
+#include "songmodel.h"
+#include "httpdownload.h"
+#include <QListView>
+#include <QtWidgets>
+IceSearch::IceSearch(QWidget *parent)
+    : movableWindow(parent)
+{
+     init_UI();
+     model = new SongModel;
+    download = new HttpDownload;
+    view->setModel(model);
+     delegate = new SongDelegate;
+     view->setItemDelegate(delegate);
+     connect(searchButton, SIGNAL(clicked()), this, SLOT(sndReq()));
+     connect(searchButton, SIGNAL(clicked()), model, SLOT(clearModel()));
+     connect(nextButton, SIGNAL(clicked()), this, SLOT(sndReq()));
+     connect(view, SIGNAL(clicked(QModelIndex)), this, SLOT(itemData(QModelIndex)));
+     connect(download, SIGNAL(downloaded(QByteArray, QString)), this, SLOT(rcvRawData(QByteArray, QString)));
+}
+
+void IceSearch::init_UI()
+{
+    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setAttribute(Qt::WA_TranslucentBackground);
+    this->setWindowOpacity(0.9);
+    this->setFixedSize(600, 600);
+    view = new QListView(this);
+    view->setGeometry(40,45,530,500);
+    view->setSpacing(0);
+    keyWordsEdit = new QLineEdit("lighters", this);
+    keyWordsEdit->setGeometry(40,20,100,20);
+    searchButton =  new QPushButton("search",  this);
+    searchButton->setGeometry(160, 20, 50, 20);
+    searchButton->setObjectName("searchBtn");
+    nextButton = new QPushButton("next", this);
+    nextButton->setObjectName("nextBtn");
+    nextButton->setGeometry(240, 20, 50, 20) ;
+    referLable = new QLabel("", this);
+    referLable->setGeometry(40,550,500,20);
+    referLable->setText("0 "+lableFormat);
+
+}
+
+IceSearch::~IceSearch()
+{
+
+}
+
+void IceSearch::itemData(const QModelIndex &index)
+{
+    QStringList str = index.model()->data(index, Qt::DisplayRole).toStringList();
+    qDebug() << str.at(0) << str.at(1) << str.at(2);
+    songInfo.append(str.at(0)+"--"+str.at(1));
+    songInfo.append(str.at(0)+"--"+str.at(1));
+    picUrl = str.at(3);
+    songUrl = str.at(4);
+    download->getRawData("1", picUrl);
+    download->getRawData("2", songUrl);
+}
+
+void IceSearch::sndReq()
+{
+
+    QString senderName = sender()->objectName();
+   // qDebug() << senderName;
+    if(senderName == "searchBtn"){
+        _songCount = 0;
+        _offset = 0;
+    }
+    else if(senderName == "nextBtn"){
+        if(_offset < 100)
+            _offset += 1;
+        else
+            referLable->setText("out of high limit");
+    }
+    QString limit = "10";
+    QString API = "http://s.music.163.com/search/get/?type=1";
+    QString arg0 = "&s=" + keyWordsEdit->text();
+    QString arg1 = "&limit=" + limit;
+    QString arg2 = "&offset=" + QString::number(10*_offset, 10);
+    QString url = API + arg0 + arg1 + arg2;
+    download->getRawData("0", url );
+    //qDebug() << "send a req";
+}
+
+
+QList<QStringList> IceSearch::jsonToLListString(QByteArray rawData)
+{
+    QJsonDocument jsonDoc;
+    QJsonObject jsonResultObj, jsonObj;
+    QJsonValue  jsonResultVal;
+    QJsonArray songArray, artistsArray;
+    QJsonParseError err;
+    QString songName, artistsName, album, picUrl, audio;
+    QStringList singleSongInfo;
+    QList<QStringList> songList;
+    int artistsNum;
+    int ArraySize, i, j;
+    jsonDoc = QJsonDocument::fromJson(rawData, &err) ;
+   if(err.error != QJsonParseError::NoError)
+   {
+       qDebug() << "get error";
+       return songList;
+   }
+    jsonObj = jsonDoc.object();
+    jsonResultVal = jsonObj.take("result");
+    jsonResultObj = jsonResultVal.toObject();
+    songCount = jsonResultObj.take("songCount").toInt();
+    referLable->setText(QString::number(songCount)+lableFormat);
+    songArray = jsonResultObj.take("songs").toArray();
+    ArraySize = songArray.count();
+    for(i = 0; i < ArraySize; i++){
+        singleSongInfo.clear();
+        songName = songArray.at(i).toObject().take("name").toString();
+        artistsNum = songArray.at(i).toObject().take("artists").toArray().count();
+        artistsArray = songArray.at(i).toObject().take("artists").toArray();
+        artistsName.clear();
+        for(j = 0; j < artistsNum; j++){
+            artistsName = artistsName + artistsArray.at(j).toObject().take("name").toString() + "-";
+            if(j == artistsNum-1)
+                qDebug() << "artistsName = " << artistsName;
+        }
+        album = songArray.at(i).toObject().take("album").toObject().take("name").toString();
+        picUrl = songArray.at(i).toObject().take("album").toObject().take("picUrl").toString();
+        audio = songArray.at(i).toObject().take("audio").toString();
+        singleSongInfo << songName << artistsName << album << picUrl << audio;
+        songList.append(singleSongInfo);
+    }
+    return songList;
+}
+void IceSearch::rcvRawData(QByteArray data, QString type)
+{
+    QFile *file = new QFile;
+    if(type == "0"){
+         model->setSongInfo(jsonToLListString(data));
+         return;
+    }
+    else if(type == "1"){
+        file->setFileName(songInfo.at(0) +QString(".png"));
+        songInfo.removeAt(0);
+    }
+    else if(type == "2"){
+         file->setFileName(songInfo.at(0) + QString(".mp3"));
+         songInfo.removeAt(0);
+    }
+    if (!file->open(QIODevice::WriteOnly)) {
+        QMessageBox::information(this, tr("HTTP"),
+                                 tr("Unable to save the file %1: %2.")
+                                 .arg("err1").arg("err2"));
+        delete file;
+        file = 0;
+        return;
+    }
+    file->write(data);
+    file->close();
+    if(type == "2"){
+        QStringList temp;
+        temp << QFileInfo(*file).absoluteFilePath();
+        emit audioFilePath(temp);
+    }
+    qDebug() << "Writen data";
+}
+
+
+
+void IceSearch::paintEvent(QPaintEvent *event)
+{
+    QPainter p(this);
+    p.drawPixmap(0, 0,this->width(), this->height(),  QPixmap(":/Resources/background.png"));
+}
