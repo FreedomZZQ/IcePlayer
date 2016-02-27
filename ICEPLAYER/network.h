@@ -1,9 +1,3 @@
-//网络模块，实现网络功能
-//使用单例模式，封装网络接口
-//使用instance()获取唯一的NetWorker对象
-//使用内部类Private封装私有变量
-
-
 #ifndef NETWORK_H
 #define NETWORK_H
 
@@ -13,32 +7,29 @@
 
 class NetWorker : public QObject{
 
-	Q_OBJECT
+    Q_OBJECT
 
 public:
 
-	//获取唯一实例
-	static NetWorker *instance();
+    //锟斤拷取唯一实锟斤拷
+    static NetWorker *instance();
 
-	~NetWorker();
+    ~NetWorker();
 
-	//向url发送get请求
-	void get(const QString &url);
+    //锟斤拷url锟斤拷锟斤拷get锟斤拷锟斤拷
+    void get(const QString &url);
 
 signals:
-	//操作完成后发射finished信号
-	void finished(QNetworkReply *reply);
+    //锟斤拷锟斤拷锟斤拷锟缴猴拷锟斤拷锟斤拷finished锟脚猴拷
+    void finished(QNetworkReply *reply);
 
 private:
-	class Private;
-	friend class Private;
-	Private *d;
-
-	//使用单例模式，类的构造函数，复制构造函数和赋值运算符都声明为私有
-	//若编译器支持c++ 11，Q_DECL_EQ_DELETE宏替换为 =delete
-	explicit NetWorker(QObject *parent = 0);
-	NetWorker(const NetWorker &) Q_DECL_EQ_DELETE;
-	NetWorker &operator=(NetWorker rhs) Q_DECL_EQ_DELETE;
+    class Private;
+    friend class Private;
+    Private *d;
+    explicit NetWorker(QObject *parent = 0);
+    NetWorker(const NetWorker &) Q_DECL_EQ_DELETE;
+    NetWorker &operator=(NetWorker rhs) Q_DECL_EQ_DELETE;
 };
 
 

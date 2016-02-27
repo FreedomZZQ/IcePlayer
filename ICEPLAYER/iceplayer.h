@@ -1,10 +1,10 @@
 #ifndef ICEPLAYER_H
 #define ICEPLAYER_H
 
-//ÎÄ×Ö¹ö¶¯ËÙ¶È
-#define TEXT_SPEED 500 
+//ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+#define TEXT_SPEED 500
 
-//°²È«»ØÊÕÄÚ´æ
+//ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
 #ifndef ICE_SAFE_RELEASE
 #define ICE_SAFE_RELEASE(p) if(p) { delete p; p = NULL;}
 #endif //ICE_SAFE_RELEASE
@@ -14,238 +14,243 @@
 #include <QMap>
 
 #include <QtWidgets>
-#include <qwidgetresizehandler_p.h>
+//#include <qwidgetresizehandler_p.h>
 #include <QMediaPlaylist>
 #include <QMediaMetaData>
 #include <QMediaPlayer>
+#include <QWindow>
 
 #include "icelrc.h"
 #include "iceButton.h"
 #include "aboutform.h"
 #include "icevolbutton.h"
-#include "mini.h"
 #include "icelabel.h"
 #include "nofocusdelegate.h"
-
 #include "network.h"
 #include "songinfo.h"
 #include <QJsonDocument>
 #include <QTextCodec>
 #include <QFileInfo>
-
-//Ã¶¾Ù²¥·ÅÄ£Ê½
+#include "movablewindow.h"
+#include "icesearch.h"
+//Ã¶ï¿½Ù²ï¿½ï¿½ï¿½Ä£Ê½
 enum ICE_Play_Mode{SINGAL, LISTCIRCLE, SINGALCIRCLE, RANDOM};
 
-//ÍøÂçÒôÀÖÐÅÏ¢£¬×¨¼­Í¼Æ¬£¬¸è´Ê»ñÈ¡×´Ì¬
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½×¨ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½Ê»ï¿½È¡×´Ì¬
 enum { RECEIVE_INFO, RECEIVE_LINK, RECEIVE_PIC, RECEIVE_LRC };
 
-class IcePlayer : public QWidget
+class miniwindow;
+class IcePlayer : public movableWindow
 {
-	//ÉèÖÃmini´°¿ÚÀàÎªÖ÷´°¿ÚÀàµÄÓÑÔªÀà£¬´Ó¶ø¿ÉÒÔµ÷ÓÃÖ÷´°¿ÚÀàµÄË½ÓÐº¯ÊýºÍË½ÓÐ¶ÔÏó
-	friend class miniwindow;
+    friend class miniwindow;
 
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit IcePlayer(QWidget *parent = 0); 
-	~IcePlayer();
-	void ICE_Open_Music(const QString& filePath);
+    explicit IcePlayer(movableWindow *parent = 0);
+    ~IcePlayer();
+    void ICE_Open_Music(const QString& filePath);
 
 public slots:
-	//´Ómini´°¿Ú·µ»ØÖ÷´°¿Ú 
-	void ICE_goback_to_main(); 
+    //ï¿½ï¿½miniï¿½ï¿½ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ICE_goback_to_main();
 
-	//½ÓÊÜmini´°¿Ú´«À´µÄ²ÎÊýÉèÖÃ²¥·ÅÄ£Ê½
-	void ICE_set_mode_from_mini(int mode); 
+    //ï¿½ï¿½ï¿½ï¿½miniï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½Ä£Ê½
+    void ICE_set_mode_from_mini(int mode);
 
-	//½ÓÊÜmini´°¿Ú´«À´µÄ²ÎÊýÉèÖÃÒôÁ¿
-	void ICE_set_vol_from_mini(int val); 
-	
+    //ï¿½ï¿½ï¿½ï¿½miniï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ICE_set_vol_from_mini(int val);
+
 private slots:
+    //void showNormal();
+    void showMinimized();
+    //ï¿½ï¿½ï¿½ï¿½Ä¿Â¼ï¿½á¹¹
+    void ice_open_dir();
 
-	//·ÃÎÊÄ¿Â¼½á¹¹ 
-	void ice_open_dir();	
+    //ï¿½ï¿½ï¿½ï¿½mp3ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ä¼ï¿½
+    void ice_open_music();
 
-	//Ìí¼Ómp3¸ñÊ½µÄÎÄ¼þ 
-	void ice_open_music();	
+    //É¾ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ÐµÄ¸ï¿½ï¿½ï¿½
+    void ice_remove_current_music();
 
-	//É¾³ýÖ¸¶¨ÐÐµÄ¸èÇú
-	void ice_remove_current_music(); 
+    //ï¿½ï¿½ï¿½Õ²ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+    void ice_clear_list();
 
-	//Çå¿Õ²¥·ÅÁÐ±í
-	void ice_clear_list();  
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½Ëµï¿½
+    void ice_playlisttable_menu_requested(const QPoint &pos);
 
-	//ÇëÇóÓÒ¼ü²Ëµ¥
-	void ice_playlisttable_menu_requested(const QPoint &pos);  
+    //Ë«ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½
+    void ice_playlisttable_cell_double_clicked(int row, int);
 
-	//Ë«»÷²¥·Å¸èÇú 
-	void ice_playlisttable_cell_double_clicked(int row, int); 
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    void ice_update_meta_data();
 
-	//¸üÐÂÒôÀÖÐÅÏ¢ 
-	void ice_update_meta_data(); 
+    //ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ice_update_duration(qint64 duration);
 
-	//¸üÐÂ½ø¶ÈÌõ 
-	void ice_update_duration(qint64 duration);
+    //ï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½×´Ì¬
+    void ice_update_state(QMediaPlayer::State state);
 
-	//¸üÐÂ²¥·Å×´Ì¬ 
-	void ice_update_state(QMediaPlayer::State state); 
+    //ï¿½ï¿½ï¿½Â²ï¿½ï¿½Å½ï¿½ï¿½ï¿½
+    void ice_set_position(/*int position*/);
 
-	//¸üÐÂ²¥·Å½ø¶È 
-	void ice_set_position(/*int position*/); 
+    //ï¿½ï¿½ï¿½Â¸ï¿½ï¿½Ê¡ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾
+    void ice_update_position(qint64 position);
 
-	//¸üÐÂ¸è´Ê¡¢Ê±¼äÏÔÊ¾ 
-	void ice_update_position(qint64 position);
+    //ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½Å¥ï¿½Äµï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥
+    void ice_play_button_clicked();
+    void ice_lyric_button_clicked();
+    void ice_logo_button_clicked();
+    void ice_mode_button_clicked();
+    void ice_pause_button_clicked();
+    void ice_min_button_clicked();
+    void ice_next_button_clicked();
+    void ice_last_button_clicked();
+    void ice_search_button_clicked();
+    //ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½Ä£Ê½
+    void ice_set_play_mode();
 
-	//ÉèÖÃ¸÷°´Å¥µÄµ¥»÷ÊÂ¼þ£¬¼¤»î¸÷°´Å¥
-	void ice_play_button_clicked(); 
-	void ice_lyric_button_clicked(); 
-	void ice_logo_button_clicked(); 
-	void ice_mode_button_clicked(); 
-	void ice_pause_button_clicked(); 
-	void ice_min_button_clicked();
-	void ice_next_button_clicked();
-	void ice_last_button_clicked();
+    //ï¿½ï¿½ï¿½ï¿½LRCï¿½ï¿½ï¿½ï¿½
+    bool ice_resolve_lrc(const QString &source_file_name);
 
-	//ÉèÖÃ²¥·ÅÄ£Ê½
-	void ice_set_play_mode();
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ä¼ï¿½
+    void ice_read_list();
 
-	//½âÎöLRC¸è´Ê 
-	bool ice_resolve_lrc(const QString &source_file_name);
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ø±ï¿½Ê±ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã£ï¿½
+    void ice_close();
 
-	//³ÌÐò´ò¿ªÊ±¶ÁÈ¡²¥·ÅÁÐ±íÎÄ¼þ 
-	void ice_read_list();
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Ð´ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ä¼ï¿½
+    void ice_write_list();
 
-	//³ÌÐò¹Ø±ÕÊ±£¨´Ëº¯ÊýÔÝÊ±ÎÞÓÃ£©
-	void ice_close();
-	
-	//°ÑÏÖÓÐ²¥·ÅÁÐ±íÐ´ÈëÁÐ±íÎÄ¼þ 
-	void ice_write_list();
+    //ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    void ice_set_play_position(int pos);
 
-	//ÉèÖÃµ±Ç°²¥·ÅÎ»ÖÃ
-	void ice_set_play_position(int pos);
+    //ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    int ice_get_play_position();
 
-	//»ñÈ¡µ±Ç°²¥·ÅÎ»ÖÃ
-	int ice_get_play_position();
-
-
+    void ice_add_list(QStringList list);
 private:
 
-	//³õÊ¼»¯Ö÷½çÃæ 
-	void ice_init_ui();	
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ice_init_ui();
 
-	//³õÊ¼»¯²¥·ÅÄ£¿é 
-	void ice_init_player();	
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+    void ice_init_player();
 
-	//³õÊ¼»¯ÐÅºÅ-²ÛÁ¬½Ó 
-	void ice_init_connections();	
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Åºï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ice_init_connections();
 
-	//³õÊ¼»¯´°¿Ú 
-	void ice_init_windows();
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ice_init_windows();
 
-	//³õÊ¼»¯²Ëµ¥Ïî
-	void ice_init_menu_actions(); 
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½
+    void ice_init_menu_actions();
 
-	//Ìí¼Óµ½²¥·ÅÁÐ±í 
-	void ice_add_list(QStringList list);
+    //ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 
-	//»æÖÆ´°Ìå
-	void paintEvent(QPaintEvent *event); 
+    //ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ï¿½
+    void paintEvent(QPaintEvent *event);
 
-	//ÍÏ×§Ìí¼Ó
-	void dragEnterEvent(QDragEnterEvent *event); 
-	void dropEvent(QDropEvent *event); 
+    //ï¿½ï¿½×§ï¿½ï¿½ï¿½ï¿½
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
 
-	//¶¨ÖÆtablewidgetÍâ¹Û
-	void ice_color_table();
+    //ï¿½ï¿½ï¿½ï¿½tablewidgetï¿½ï¿½ï¿½ï¿½
+    void ice_color_table();
 
-	//³õÊ¼»¯ÍøÂçÄ£¿é
-	void ice_init_network();
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+    void ice_init_network();
 
-	//»ñÈ¡ÍøÂçÊý¾Ý
-	void ice_fetch_data();
+    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ice_fetch_data();
 
-	//½ÓÊÕ×¨¼­Í¼Æ¬
-	void ice_rece_pic(QNetworkReply *reply);
+    //ï¿½ï¿½ï¿½ï¿½×¨ï¿½ï¿½Í¼Æ¬
+    void ice_rece_pic(QNetworkReply *reply);
 
-	//½ÓÊÕ¸èÇúÐÅÏ¢
-	void ice_rece_info(QNetworkReply *reply);
+    //ï¿½ï¿½ï¿½Õ¸ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    void ice_rece_info(QNetworkReply *reply);
 
-	//½ÓÊÕÍøÂç¸è´Ê
-	void ice_rece_lrc(QNetworkReply *reply);
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ice_rece_lrc(QNetworkReply *reply);
 
-	//½ÓÊÕ¸è´ÊµØÖ·
-	void ice_rece_link(QNetworkReply *reply);
+    //ï¿½ï¿½ï¿½Õ¸ï¿½ï¿½Êµï¿½Ö·
+    void ice_rece_link(QNetworkReply *reply);
 
-	//´Ó´ÅÅÌÖÐ¶ÁÈ¡×¨¼­Í¼Æ¬
-	bool ice_get_pic_from_file();
+    //ï¿½Ó´ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½È¡×¨ï¿½ï¿½Í¼Æ¬
+    bool ice_get_pic_from_file();
 
-	ICE_Lrc *iceLrc;
-	QMap<qint64, QString> lrcMap;
+    void moveEvent(QMoveEvent *event);
 
-	QStringList playList;
-	QString playingFile;
-	QString iceDir;
-	
-	int preIndex;
-	int currentIndex;
-	int playMode;
+    void close();
+    ICE_Lrc *iceLrc;
+    QMap<qint64, QString> lrcMap;
 
-	ICE_Ice_Button *minButton;
-	ICE_Ice_Button *exitButton;
-	ICE_Ice_Button *addButton;
-	ICE_Ice_Button *lyricButton;
-	ICE_Ice_Button *lastButton;
-	ICE_Ice_Button *nextButton;
-	ICE_Ice_Button *playButton;
-	ICE_Ice_Button *pauseButton;
-	ICE_Ice_Button *modeButton;
-	ICE_Ice_Button *mminButton;
-	ICE_Ice_Button *logoButton;
+    QStringList playList;
+    QString playingFile;
+    QString iceDir;
 
-	IceLabel *nameLabel;
-	QLabel *musicianLabel;
-	QLabel *albumLabel;
-	QLabel *timeLabel;
-	QLabel *picLabel;
+    int preIndex;
+    int currentIndex;
+    int playMode;
 
-	QSlider *playSlider;
-	QSlider *volSlider;
+    ICE_Ice_Button *searchButton;
+    ICE_Ice_Button *minButton;
+    ICE_Ice_Button *exitButton;
+    ICE_Ice_Button *addButton;
+    ICE_Ice_Button *lyricButton;
+    ICE_Ice_Button *lastButton;
+    ICE_Ice_Button *nextButton;
+    ICE_Ice_Button *playButton;
+    ICE_Ice_Button *pauseButton;
+    ICE_Ice_Button *modeButton;
+    ICE_Ice_Button *mminButton;
+    ICE_Ice_Button *logoButton;
 
-	QTableWidget *playlistTable;
+    IceLabel *nameLabel;
+    QLabel *musicianLabel;
+    QLabel *albumLabel;
+    QLabel *timeLabel;
+    QLabel *picLabel;
 
-	QMediaPlayer *mediaPlayer;
-	QMediaPlaylist *mediaList;
+    QSlider *playSlider;
+    QSlider *volSlider;
 
-	QMenu *contextMenuLess;
-	QMenu *contextMenuMore;
-	QMenu *playModeMenu;
+    QTableWidget *playlistTable;
 
-	QActionGroup *modeActionGroup;
+    QMediaPlayer *mediaPlayer;
+    QMediaPlaylist *mediaList;
 
-	//enum ICE_Play_Mode{SINGAL, LISTCIRCLE, SINGALCIRCLE, RANDOM};
-	QAction *modeSingal;
-	QAction *modeListCircle;
-	QAction *modeSingalCircle;
-	QAction *modeRandom;
-	QAction *addMusic;
-	QAction *addFileDiv;
-	QAction *removeCurr;
-	QAction *removeAll;
+    QMenu *contextMenuLess;
+    QMenu *contextMenuMore;
+    QMenu *playModeMenu;
 
-	ICE_Vol_Button *volButton;
-	
-	miniwindow *miniForm;
-	ICE_About_Form *aboutForm;
+    QActionGroup *modeActionGroup;
 
-	NetWorker *networker;
-	QString songName;
-	QString songArtist;
-	QString songId;
-	QString picUrl;
-	QString lrcUrl;
-	int receiveState;
+    //enum ICE_Play_Mode{SINGAL, LISTCIRCLE, SINGALCIRCLE, RANDOM};
+    QAction *modeSingal;
+    QAction *modeListCircle;
+    QAction *modeSingalCircle;
+    QAction *modeRandom;
+    QAction *addMusic;
+    QAction *addFileDiv;
+    QAction *removeCurr;
+    QAction *removeAll;
 
-	int playPosition;
+    ICE_Vol_Button *volButton;
+
+    ICE_About_Form *aboutForm;
+    miniwindow *miniForm;
+    IceSearch *searchForm;
+    NetWorker *networker;
+    QString songName;
+    QString songArtist;
+    QString songId;
+    QString picUrl;
+    QString lrcUrl;
+    int receiveState;
+
+    int playPosition;
+    bool searchFormShow;
 };
 
-#endif 
+#endif

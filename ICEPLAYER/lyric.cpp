@@ -2,49 +2,49 @@
 
 ICE_Lrc_Label::ICE_Lrc_Label(QWidget *parent) : IceLabel(parent)
 {
-	//setAttribute(Qt::WA_TranslucentBackground);
-	setText(QString::fromLocal8Bit("±ùµã²¥·ÅÆ÷"));
-	//setAlignment(Qt::AlignCenter);
-	// ¹Ì¶¨ÏÔÊ¾ÇøÓò´óÐ¡
- 	//setMaximumSize(800, 80);
+    //setAttribute(Qt::WA_TranslucentBackground);
+    setText(QString::fromLocal8Bit("å†°ç‚¹æ’­æ”¾å™¨"));
+    //setAlignment(Qt::AlignCenter);
+    // ï¿½Ì¶ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+    //setMaximumSize(800, 80);
 // 	setMinimumSize(800, 80);
 
-	//¸è´ÊµÄÏßÐÔ½¥±äÌî³ä
-	linearGradient.setStart(0, 10);//Ìî³äµÄÆðµã×ø±ê
-	linearGradient.setFinalStop(0, 40);//Ìî³äµÄÖÕµã×ø±ê
-	//µÚÒ»¸ö²ÎÊýÖÕµã×ø±ê£¬Ïà¶ÔÓÚÎÒÃÇÉÏÃæµÄÇøÓò¶øÑÔ£¬°´ÕÕ±ÈÀý½øÐÐ¼ÆËã
-	/*linearGradient.setColorAt(0.1, QColor(14, 179, 255));
-	linearGradient.setColorAt(0.5, QColor(114, 232, 255));
-	linearGradient.setColorAt(0.9, QColor(14, 179, 255));
-	linearGradient.setColorAt(0, QColor(14, 179, 230));*/
-	linearGradient.setColorAt(0, QColor(1, 150, 255));
+    //ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    linearGradient.setStart(0, 10);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    linearGradient.setFinalStop(0, 40);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ê£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½
+    /*linearGradient.setColorAt(0.1, QColor(14, 179, 255));
+    linearGradient.setColorAt(0.5, QColor(114, 232, 255));
+    linearGradient.setColorAt(0.9, QColor(14, 179, 255));
+    linearGradient.setColorAt(0, QColor(14, 179, 230));*/
+    linearGradient.setColorAt(0, QColor(1, 150, 255));
 
-	// ÕÚÕÖµÄÏßÐÔ½¥±äÌî³ä
+    // ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // 	maskLinearGradient.setStart(0, 10);
 // 	maskLinearGradient.setFinalStop(0, 40);
 // 	maskLinearGradient.setColorAt(0.1, QColor(222, 54, 4));
 // 	maskLinearGradient.setColorAt(0.5, QColor(255, 72, 16));
 // 	maskLinearGradient.setColorAt(0.9, QColor(222, 54, 4));
 // 	maskLinearGradient.setColorAt(0, QColor(0, 150, 255));
-	// ÉèÖÃ×ÖÌå
-	lrcFont.setFamily(QString::fromLocal8Bit("Î¢ÈíÑÅºÚ"));
-	//lrcFont.setBold(true);
-	lrcFont.setPointSize(25);
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    lrcFont.setFamily(QString::fromLocal8Bit("Helvetica [Cronyx]"));
+    //lrcFont.setBold(true);
+    lrcFont.setPointSize(25);
 
-	// ÉèÖÃ¶¨Ê±Æ÷
+    // ï¿½ï¿½ï¿½Ã¶ï¿½Ê±ï¿½ï¿½
 // 	lrcTimer = new QTimer(this);
 // 	connect(lrcTimer, SIGNAL(ice_time_out()), this, SLOT(ice_time_out()));
 // 	lrcMaskWidth = 0;
 // 	lrcMaskWidthInterval = 0;
 }
 
-// ¿ªÆôÕÚÕÖ£¬ÐèÒªÖ¸¶¨µ±Ç°¸è´Ê¿ªÊ¼Óë½áÊøÖ®¼äµÄÊ±¼ä¼ä¸ô
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ÒªÖ¸ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ê¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void ICE_Lrc_Label::ICE_Start_Lrc_Mask(qint64 intervaltime)
 {
-	// ÕâÀïÉèÖÃÃ¿¸ô30ºÁÃë¸üÐÂÒ»´ÎÕÚÕÖµÄ¿í¶È£¬ÒòÎªÈç¹û¸üÐÂÌ«Æµ·±
-	// »áÔö¼ÓCPUÕ¼ÓÃÂÊ£¬¶øÈç¹ûÊ±¼ä¼ä¸ôÌ«´ó£¬Ôò¶¯»­Ð§¹û¾Í²»Á÷³©ÁË
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½30ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ¿ï¿½ï¿½È£ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«Æµï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CPUÕ¼ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½ï¿½ò¶¯»ï¿½Ð§ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 /*	qreal count = intervaltime / 30;*/
-	// »ñÈ¡ÕÚÕÖÃ¿´ÎÐèÒªÔö¼ÓµÄ¿í¶È£¬ÕâÀïµÄ800ÊÇ²¿¼þµÄ¹Ì¶¨¿í¶È
+    // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ÓµÄ¿ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½800ï¿½Ç²ï¿½ï¿½ï¿½ï¿½Ä¹Ì¶ï¿½ï¿½ï¿½ï¿½ï¿½
 // 	lrcMaskWidthInterval = 800 / count;
 // 	lrcMaskWidth = 0;
 // 	lrcTimer->start(30);
@@ -54,73 +54,74 @@ void ICE_Lrc_Label::ICE_Stop_Lrc_Mask()
 {
 // 	lrcTimer->stop();
 // 	lrcMaskWidth = 0;
-	update();
+    update();
 }
 
 void ICE_Lrc_Label::paintEvent(QPaintEvent *)
 {
 
-	QPainter painter(this);
-	painter.setFont(lrcFont);
+    QPainter painter(this);
+    painter.setFont(lrcFont);
 
-	if(text().size() < 2){
-		setText("Music...");
-	}
-	QString tmp = text();
-	tmp.toUtf8();
-	// ÏÈ»æÖÆµ×²ãÎÄ×Ö£¬×÷ÎªÒõÓ°£¬ÕâÑù»áÊ¹ÏÔÊ¾Ð§¹û¸ü¼ÓÇåÎú£¬ÇÒ¸üÓÐÖÊ¸Ð
-	painter.setPen(QColor(90, 105, 115, 200));
-	painter.drawText(1, 1, 800, 60, Qt::AlignCenter, tmp);
+    if(text().size() < 2){
+        setText("Music...");
+    }
+    QString tmp = text();
+    /* why when I use QString::toUtf8()  , then My program will crash in other host*/
+   // tmp.toUtf8();
+    // ï¿½È»ï¿½ï¿½Æµ×²ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Îªï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ê¾Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½Ê¸ï¿½
+    painter.setPen(QColor(90, 105, 115, 200));
+    painter.drawText(1, 1, 800, 60, Qt::AlignCenter, tmp);
 
-	// ÔÙÔÚÉÏÃæ»æÖÆÎÄ×Ö
-	painter.setPen(QPen(linearGradient, 0));
-	painter.drawText(0, 0, 800, 60, Qt::AlignCenter, tmp);
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    painter.setPen(QPen(linearGradient, 0));
+    painter.drawText(0, 0, 800, 60, Qt::AlignCenter, tmp);
 
-	// ÉèÖÃ¸è´ÊÕÚÕÖ
+    // ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // 	painter.setPen(QPen(maskLinearGradient, 0));
 // 	painter.drawText(0, 0, lrcMaskWidth, 60, Qt::AlignCenter, tmp);
 
 }
 
-// ×ó»÷²Ù×÷
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // void ICE_Lrc_Label::mousePressEvent(QMouseEvent *event)
 // {
 // 	if (event->button() == Qt::LeftButton)
 // 		offSet = event->globalPos() - frameGeometry().topLeft();
 // }
-// 
-// 
+//
+//
 // void ICE_Lrc_Label::mouseMoveEvent(QMouseEvent *event)
 // {
-// 	//ÒÆ¶¯Êó±êµ½¸è´ÊÉÏÊ±£¬»áÏÔÊ¾ÊÖÐÍ
-// 	//event->buttons()·µ»ØÊó±êµã»÷µÄÀàÐÍ£¬·ÖÎª×ó»÷£¬ÖÐ»÷£¬ÓÒ»÷
-// 	//ÕâÀïÓÃÓë²Ù×÷±íÊ¾ÊÇ×ó»÷
+// 	//ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½êµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+// 	//event->buttons()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½
+// 	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // 	if (event->buttons() & Qt::LeftButton) {
 // 		setCursor(Qt::PointingHandCursor);
-// 		//ÊµÏÖÒÆ¶¯²Ù×÷
+// 		//Êµï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 // 		move(event->globalPos() - offSet);
 // 	}
 // }
 
-//ÓÒ»÷ÊÂ¼þ
+//ï¿½Ò»ï¿½ï¿½Â¼ï¿½
 void ICE_Lrc_Label::contextMenuEvent(QContextMenuEvent *event)
 {
-	QMenu menu;
-	menu.addAction(QString::fromLocal8Bit("Òþ²Ø"), this->parent(), SLOT(hide()));
-	menu.exec(event->globalPos());//globalPos()Îªµ±Ç°Êó±êµÄÎ»ÖÃ×ø±ê
+    QMenu menu;
+    menu.addAction(QString::fromLocal8Bit("unknown Act"), this->parent(), SLOT(hide()));
+    menu.exec(event->globalPos());//globalPos()Îªï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 
 void ICE_Lrc_Label::ice_time_out()
 {
 
-	//Ã¿¸ôÒ»¶Î¹Ì¶¨µÄÊ±¼äÁýÕÖµÄ³¤¶È¾ÍÔö¼ÓÒ»µã
-	//lrcMaskWidth += lrcMaskWidthInterval;
-	update();//¸üÐÂwidget£¬µ«ÊÇ²¢²»Á¢¼´ÖØ»æ£¬¶øÊÇ°²ÅÅÒ»¸öPaintÊÂ¼þ£¬µ±·µ»ØÖ÷Ñ­»·Ê±ÓÉÏµÍ³À´ÖØ»æ
+    //Ã¿ï¿½ï¿½Ò»ï¿½Î¹Ì¶ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ³ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+    //lrcMaskWidth += lrcMaskWidthInterval;
+    update();//ï¿½ï¿½ï¿½ï¿½widgetï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø»æ£¬ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Paintï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½Ê±ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Ø»ï¿½
 }
 
 
 void ICE_Lrc_Label::ICE_Set_Size(int size)
 {
-	lrcFont.setPointSize(size);
+    lrcFont.setPointSize(size);
 }

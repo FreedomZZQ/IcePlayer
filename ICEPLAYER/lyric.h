@@ -6,46 +6,42 @@
 
 class ICE_Lrc_Label : public IceLabel{
 
-	Q_OBJECT
+    Q_OBJECT
 
 public:
 
-	explicit ICE_Lrc_Label(QWidget *parent = 0);
+    explicit ICE_Lrc_Label(QWidget *parent = 0);
 
-	//¿ªÊ¼¸è´ÊÕÚÕÖ
-	void ICE_Start_Lrc_Mask(qint64 intervaltime);
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ICE_Start_Lrc_Mask(qint64 intervaltime);
 
-	//Í£Ö¹¸è´ÊÕÚÕÖ
-	void ICE_Stop_Lrc_Mask();
+    //Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ICE_Stop_Lrc_Mask();
 
-	//µ÷Õû×ÖÌå´óÐ¡
-	void ICE_Set_Size(int size);
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+    void ICE_Set_Size(int size);
 
 protected:
 
-	//»æÖÆ´°Ìå
-	void paintEvent(QPaintEvent *);
+    //ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ï¿½
+    void paintEvent(QPaintEvent *);
 
-	//Êó±êÊÂ¼þ
-	//void mousePressEvent(QMouseEvent *event);
-	//void mouseMoveEvent(QMouseEvent *event);
-
-	//²Ëµ¥ÊÂ¼þ
-	void contextMenuEvent(QContextMenuEvent *event);
+    //ï¿½Ëµï¿½ï¿½Â¼ï¿½
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
 
-	void ice_time_out();
+    void ice_time_out();
 
 private:
 
-	QLinearGradient linearGradient;
-	QLinearGradient maskLinearGradient;
-	QFont lrcFont;
-	QTimer *lrcTimer;
-	qreal lrcMaskWidth;
-	qreal lrcMaskWidthInterval;
-	QPoint offSet;
+    QLinearGradient linearGradient;
+    QLinearGradient maskLinearGradient;
+    QFont lrcFont;
+    QTimer *lrcTimer;
+    qreal lrcMaskWidth;
+    qreal lrcMaskWidthInterval;
+    QPoint offSet;
 };
 
 #endif

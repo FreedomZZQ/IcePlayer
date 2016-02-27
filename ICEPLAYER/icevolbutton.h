@@ -6,42 +6,42 @@
 
 class ICE_Vol_Button : public QWidget
 {
-	Q_OBJECT
-	Q_PROPERTY(int ICE_Get_Volume READ ICE_Get_Volume WRITE ICE_Set_Volume NOTIFY ICE_Volume_Changed)
+    Q_OBJECT
+    Q_PROPERTY(int ICE_Get_Volume READ ICE_Get_Volume WRITE ICE_Set_Volume NOTIFY ICE_Volume_Changed)
 
 public:
-	ICE_Vol_Button(QWidget *parent = 0); 
+    ICE_Vol_Button(QWidget *parent = 0);
 
-	//·µ»ØÒôÁ¿Öµ£¨0~100£©
-	int ICE_Get_Volume() const; 
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½0~100ï¿½ï¿½
+    int ICE_Get_Volume() const;
 
-	//ÉèÖÃÒôÁ¿ÌõÊÇ·ñ¿É¼û
-	void ICE_Set_Slider_Visiable(bool);
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½É¼ï¿½
+    void ICE_Set_Slider_Visiable(bool);
 
 public slots:
 
-	//µã»÷ÒôÁ¿ÌõÊ¹ÒôÁ¿Ôö¼ÓÒ»²¿·Ö	
-	void ICE_Increase_Volume(); 
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+    void ICE_Increase_Volume();
 
-	//µã»÷ÒôÁ¿ÌõÊ¹ÒôÁ¿¼õÉÙÒ»²¿·Ö
-	void ICE_Descrease_Volume(); 
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+    void ICE_Descrease_Volume();
 
-	//ÉèÖÃÒôÁ¿
-	void ICE_Set_Volume(int volume); 
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void ICE_Set_Volume(int volume);
 
-	//°´Å¥µ¥»÷ÊÂ¼þ£¬µ¯³ö²Ëµ¥
-	void ICE_Button_Clicked(); 
+    //ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½
+    void ICE_Button_Clicked();
 
 signals:
 
-	//ÒôÁ¿¸Ä±äÐÅºÅ£¨µ±ÒôÁ¿Ìõ±»ÍÏ¶¯Ê±·¢Éä£©
-	void ICE_Volume_Changed(int volume); 
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ÅºÅ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½Ê±ï¿½ï¿½ï¿½ä£©
+    void ICE_Volume_Changed(int volume);
 
 private:
-	ICE_Ice_Button *button;
-	QSlider *slider;
-	QMenu *menu;
-	QWidgetAction *action;
+    ICE_Ice_Button *button;
+    QSlider *slider;
+    QMenu *menu;
+    QWidgetAction *action;
 };
 
-#endif 
+#endif
