@@ -26,10 +26,6 @@ protected:
     //���ƴ���
     void paintEvent(QPaintEvent *);
 
-    //�����¼�
-    //void mousePressEvent(QMouseEvent *event);
-    //void mouseMoveEvent(QMouseEvent *event);
-
     //�˵��¼�
     void contextMenuEvent(QContextMenuEvent *event);
 

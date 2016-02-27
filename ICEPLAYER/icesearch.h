@@ -28,6 +28,8 @@ public slots:
    void sndReq();
    void itemData(const QModelIndex &index);
    void rcvRawData(QByteArray data, QString type);
+private slots:
+   void cacheLableTimeOut();
 private:
     QListView  *view;
      SongModel  *model;
@@ -44,7 +46,14 @@ private:
      QString songUrl;
      QList<QString> songInfo;
      QByteArray rawData;
+
+     QLabel *cacheLable;
+     QTimer *cacheLableTimer;
+     int cacheLableFlag;
+
      int songCount;
+     bool downloaded1;
+     bool downloaded2;
 };
 
 #endif // ICESEARCH_H

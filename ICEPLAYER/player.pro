@@ -10,9 +10,9 @@ QT += multimedia
 CONFIG += c++11
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = palyer
+TARGET = player
 TEMPLATE = app
-
+RC_FILE = icon.rc
 
 SOURCES += main.cpp\
     aboutform.cpp \
@@ -26,7 +26,11 @@ SOURCES += main.cpp\
     single_application.cpp \
     iceButton.cpp \
     mini.cpp \
-    movablewindow.cpp
+    movablewindow.cpp \
+    httpdownload.cpp \
+    icesearch.cpp \
+    songdelegate.cpp \
+    songmodel.cpp
 
 HEADERS  += \
     aboutform.h \
@@ -42,7 +46,11 @@ HEADERS  += \
     iceButton.h \
     mini.h \
     songinfo.h \
-    movablewindow.h
+    movablewindow.h \
+    httpdownload.h \
+    icesearch.h \
+    songdelegate.h \
+    songmodel.h
 
 RESOURCES += \
     resources.qrc
@@ -85,4 +93,7 @@ DISTFILES += \
     Resources/迷你模式按钮.png \
     Resources/迷你模式按钮2.png \
     Resources/音量调节.png \
-    Resources/音量调节2.png
+    Resources/音量调节2.png \
+    icon.rc
+
+QMAKE_LFLAGS += -Wl,-rpath,"'\$$ORIGIN'"

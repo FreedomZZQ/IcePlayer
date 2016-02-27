@@ -67,7 +67,8 @@ void ICE_Lrc_Label::paintEvent(QPaintEvent *)
         setText("Music...");
     }
     QString tmp = text();
-    tmp.toUtf8();
+    /* why when I use QString::toUtf8()  , then My program will crash in other host*/
+   // tmp.toUtf8();
     // �Ȼ��Ƶײ����֣���Ϊ��Ӱ��������ʹ��ʾЧ�������������Ҹ����ʸ�
     painter.setPen(QColor(90, 105, 115, 200));
     painter.drawText(1, 1, 800, 60, Qt::AlignCenter, tmp);

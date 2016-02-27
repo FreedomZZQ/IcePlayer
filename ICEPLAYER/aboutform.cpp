@@ -45,39 +45,6 @@ ICE_About_Form::~ICE_About_Form()
 {
 
 }
-/*
-void ICE_About_Form::mousePressEvent(QMouseEvent *event)
-{
-    qDebug() << "clicked";
-    if (event->button() == Qt::LeftButton) {
-        this->m_drag = true;
-        this->dragPos = event->pos();
-    }
-}
-void ICE_About_Form::mouseMoveEvent(QMouseEvent * event)
-{
-    qDebug() << "clicked";
-    if(m_move) {
-        move(event->globalPos() - dragPos);
-        return;
-    }
-    setCursor(Qt::ArrowCursor);
-    if (m_drag && (event->buttons() & Qt::LeftButton)) {
-       m_move = true;
-       move(event->globalPos() - dragPos);
-    }
-}
-void ICE_About_Form::mouseReleaseEvent(QMouseEvent *event)
-{
-    qDebug() << "clicked";
-    m_drag = false;
-    if(m_move) {
-        m_move = false;
-    }
-    setCursor(Qt::ArrowCursor);
-}
-
-*/
 
 
 

@@ -3,10 +3,12 @@
 IcePlayer::IcePlayer(movableWindow *parent)
     : movableWindow(parent)
 {
+    searchFormShow = true;
     ice_init_ui();
     ice_init_player();
-    ice_init_connections();
     ice_init_windows();
+    ice_init_connections();
+
     ice_init_menu_actions();
     ice_init_network();
     iceDir = QApplication::applicationDirPath();
@@ -22,7 +24,8 @@ void IcePlayer::ice_init_windows()
 {
     aboutForm = new ICE_About_Form(this);
     iceLrc = new ICE_Lrc(this);
-
+    searchForm = new IceSearch();
+    //searchForm->show();
     miniForm = new miniwindow();
     miniForm->ICE_Set_Parent(this);
     miniForm->hide();
@@ -130,7 +133,6 @@ void IcePlayer::ice_init_connections()
     connect(playlistTable, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(ice_playlisttable_menu_requested(const QPoint &)));
 
     connect(addButton, SIGNAL(clicked()), this, SLOT(ice_open_music()));
-    connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
     connect(playButton, SIGNAL(clicked()), this, SLOT(ice_play_button_clicked()));
     connect(lyricButton, SIGNAL(clicked()), this, SLOT(ice_lyric_button_clicked()));
     connect(logoButton, SIGNAL(clicked()), this, SLOT(ice_logo_button_clicked()));
@@ -138,15 +140,22 @@ void IcePlayer::ice_init_connections()
     connect(nextButton, SIGNAL(clicked()), this, SLOT(ice_next_button_clicked()));
     connect(lastButton, SIGNAL(clicked()), this, SLOT(ice_last_button_clicked()));
     connect(pauseButton, SIGNAL(clicked()), this, SLOT(ice_pause_button_clicked()));
+    connect(searchButton, SIGNAL(clicked()), this, SLOT(ice_search_button_clicked()));
     connect(minButton, SIGNAL(clicked()), this, SLOT(ice_min_button_clicked()));
     connect(mminButton, SIGNAL(clicked()), this, SLOT(showMinimized()));
     connect(exitButton, SIGNAL(clicked()), this, SLOT(ice_close()));
+    connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(searchForm, SIGNAL(audioFilePath(QStringList)), this,SLOT( ice_add_list(QStringList)));
    // connect(this, SIGNAL(destroyed()), this, SLOT(ice_close()));
     //connect(mediaList, SIGNAL(mediaInserted()), this, SLOT(ice_write_list()));
 }
 
 void IcePlayer::showMinimized()
 {
+    if(searchFormShow == true)
+        searchFormShow = false;
+
+    this->searchForm->hide();
     qDebug() << "showMinimized";
      showNormal();
     QWidget::showMinimized();
@@ -215,6 +224,9 @@ void IcePlayer::ice_init_ui()
     volButton->setGeometry(QRect(333, 193, 31, 31));
     volButton->ICE_Set_Volume(100);
 
+    searchButton = new ICE_Ice_Button(this);
+    searchButton->setObjectName(QStringLiteral("searchButton"));
+    searchButton->setGeometry(QRect(277, 3, 29, 31));
     mminButton = new ICE_Ice_Button( this);
     mminButton->setObjectName(QStringLiteral("mminButton"));
     mminButton->setGeometry(QRect(307, 3, 29, 31));
@@ -239,6 +251,7 @@ void IcePlayer::ice_init_ui()
     lyricButton->raise();
     playButton->raise();
     volButton->raise();
+    searchButton->raise();
     mminButton->raise();
     minButton->raise();
     exitButton->raise();
@@ -295,6 +308,15 @@ void IcePlayer::ice_init_ui()
     minButton->setFlat(true);
     minButton->setFocusPolicy(Qt::NoFocus);
     minButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);border-style:solid;border-width:0px;border-color:rgba(255,255,255,0);}");
+
+    QIcon icon_search, icon_search_focus;
+    icon_search.addFile(QStringLiteral(":/Resources/缩小按钮.png"), QSize(), QIcon::Normal, QIcon::Off);
+    icon_search_focus.addFile(QStringLiteral(":/Resources/缩小按钮2.png"), QSize(), QIcon::Normal, QIcon::Off);
+    searchButton->ICE_Set_Button_Icons(icon_search, icon_search_focus);
+    searchButton->setIconSize(QSize(20, 20));
+    searchButton->setFlat(true);
+    searchButton->setFocusPolicy(Qt::NoFocus);
+    searchButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);border-style:solid;border-width:0px;border-color:rgba(255,255,255,0);}");
 
     QIcon icon_mmin, icon_mmin_focus;
     icon_mmin.addFile(QStringLiteral(":/Resources/缩小按钮.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -353,9 +375,6 @@ void IcePlayer::ice_init_ui()
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
     this->setWindowOpacity(0.9);
     setAttribute(Qt::WA_TranslucentBackground);
-    //�����϶�
-    //QWidgetResizeHandler *movewin = new QWidgetResizeHandler(this);
-    //movewin->setMovingEnabled(true);
 
     this->setFixedSize(400, 600);
 
@@ -555,7 +574,7 @@ void IcePlayer::ice_playlisttable_menu_requested(const QPoint &pos)
 void IcePlayer::ice_set_position(/*int position*/)
 {
     int pos = ice_get_play_position();
-    int state = mediaPlayer->state();
+//    int state = mediaPlayer->state();
 /*	if (qAbs(mediaPlayer->position() - pos) > 99)*/
     mediaPlayer->setPosition(pos);
 
@@ -656,9 +675,9 @@ void IcePlayer::ice_update_meta_data()
     iceLrc->setText(songName);
     //picLabel->setPixmap();
    // QImage img = mediaPlayer->metaData(QMediaMetaData::CoverArtImage).value<QImage>();
-  //  img = mediaPlayer->metaData(QMediaMetaData::CoverArtUrlLarge).value<QImage>();
+  // QImage img = mediaPlayer->metaData(QMediaMetaData::CoverArtUrlLarge).value<QImage>();
     //QImage img = var.value<QImage>();
-    //picLabel->setPixmap(QPixmap::fromImage(img));
+   // picLabel->setPixmap(QPixmap::fromImage(img));
     if (!songName.isEmpty()){
         bool pic = ice_get_pic_from_file();
         bool lrc = ice_resolve_lrc(playingFile);
@@ -777,6 +796,19 @@ void IcePlayer::ice_min_button_clicked()
     miniForm->show();
     miniForm->ICE_Init_Play_Mode(volButton->ICE_Get_Volume());
     this->hide();
+}
+
+void IcePlayer::ice_search_button_clicked()
+{
+    if(searchFormShow == true){
+        this->searchForm->show();
+        this->searchForm->move(geometry().x()+width()-20, geometry().y());
+        searchFormShow = false;
+    }
+    else{
+        this->searchForm->hide();
+        searchFormShow = true;
+    }
 }
 
 void IcePlayer::ice_set_play_mode()
@@ -993,10 +1025,6 @@ void IcePlayer::ice_init_network()
         default:
             break;
         }
-
-        //buggy there!!
-        //����Ӧ��ɾ���ϴε�reply
-        //reply->deleteLater();
          reply->abort();
     }        );
 }
@@ -1223,50 +1251,7 @@ bool IcePlayer::ice_get_pic_from_file()
 void IcePlayer::ice_close()
 {
     ice_write_list();
-/* not needed, because of that all object`s childrens are destroyed, when destroy signal emit */
-  /*  ICE_SAFE_RELEASE(iceLrc);
 
-    ICE_SAFE_RELEASE(minButton);
-    ICE_SAFE_RELEASE(exitButton);
-    ICE_SAFE_RELEASE(addButton);
-    ICE_SAFE_RELEASE(lyricButton);
-    ICE_SAFE_RELEASE(lastButton);
-    ICE_SAFE_RELEASE(nextButton);
-    ICE_SAFE_RELEASE(playButton);
-    ICE_SAFE_RELEASE(pauseButton);
-    ICE_SAFE_RELEASE(modeButton);
-    ICE_SAFE_RELEASE(mminButton);
-    ICE_SAFE_RELEASE(logoButton);
-
-    ICE_SAFE_RELEASE(nameLabel);
-    ICE_SAFE_RELEASE(musicianLabel);
-    ICE_SAFE_RELEASE(albumLabel);
-    ICE_SAFE_RELEASE(timeLabel);
-    ICE_SAFE_RELEASE(picLabel);
-
-    ICE_SAFE_RELEASE(playSlider);
-    ICE_SAFE_RELEASE(volSlider);
-
-    ICE_SAFE_RELEASE(playlistTable);
-    ICE_SAFE_RELEASE(mediaPlayer);
-    ICE_SAFE_RELEASE(mediaList);
-    ICE_SAFE_RELEASE(contextMenuLess);
-    ICE_SAFE_RELEASE(contextMenuMore);
-
-    ICE_SAFE_RELEASE(modeSingal);
-    ICE_SAFE_RELEASE(modeListCircle);
-    ICE_SAFE_RELEASE(modeSingalCircle);
-    ICE_SAFE_RELEASE(modeRandom);
-    ICE_SAFE_RELEASE(addMusic);
-    ICE_SAFE_RELEASE(addFileDiv);
-    ICE_SAFE_RELEASE(removeCurr);
-    ICE_SAFE_RELEASE(removeAll);
-    ICE_SAFE_RELEASE(modeActionGroup);
-
-    ICE_SAFE_RELEASE(volButton);
-    ICE_SAFE_RELEASE(miniForm);
-    ICE_SAFE_RELEASE(aboutForm);
-*/
 }
 
 void IcePlayer::ice_set_play_position(int pos)
@@ -1277,4 +1262,24 @@ void IcePlayer::ice_set_play_position(int pos)
 int IcePlayer::ice_get_play_position()
 {
     return playPosition;
+}
+
+void IcePlayer::moveEvent(QMoveEvent *event)
+{
+    searchForm->move(event->pos().x()+width()-20, event->pos().y());
+}
+
+/*void IcePlayer::showNormal()
+{
+    this->searchForm->show();
+}
+*/
+
+void IcePlayer::close()
+{
+    if(searchFormShow == true){
+        this->searchForm->hide();
+        searchFormShow = false;
+    }
+    movableWindow::close();
 }

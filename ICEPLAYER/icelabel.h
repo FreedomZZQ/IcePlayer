@@ -9,10 +9,6 @@ class IceLabel : public QLabel
 public:
     explicit IceLabel(QWidget *parent=0);
     ~IceLabel();
-
-    //�����ı�:
-    //����msΪ0�����ֲ�����(Ĭ�ϲ�����);
-    //��������setText()���ֽ�������(��ʹ��QLabel��ͬ);
     void ICE_Set_Text(const QString &context=0, const int &ms=0);
 
     //ֹͣ����

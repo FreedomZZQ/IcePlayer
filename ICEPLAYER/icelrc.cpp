@@ -7,12 +7,7 @@ ICE_Lrc::ICE_Lrc(movableWindow *parent /* = 0 */)
 
     //�ޱ߽��Ĵ���,��������
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnTopHint);
-    //ȥ������ԭ����
     setAttribute(Qt::WA_TranslucentBackground);
-    //�����϶�
-    //QWidgetResizeHandler *movewin = new QWidgetResizeHandler(this);
-    //movewin->setMovingEnabled(true);
-    //�̶���С
     this->setFixedSize(800, 80);
 
     lrcLabel = new ICE_Lrc_Label(this);
@@ -21,8 +16,8 @@ ICE_Lrc::ICE_Lrc(movableWindow *parent /* = 0 */)
 
 ICE_Lrc::~ICE_Lrc()
 {
-    if (lrcLabel != NULL)
-        delete lrcLabel;
+ //   if (lrcLabel != NULL)
+//        delete lrcLabel;
 }
 
 void ICE_Lrc::paintEvent(QPaintEvent *event)
@@ -33,17 +28,17 @@ void ICE_Lrc::paintEvent(QPaintEvent *event)
 
 void ICE_Lrc::ICE_Start_Lrc_Mask(qint64 intervaltime)
 {
-    lrcLabel->ICE_Start_Lrc_Mask(intervaltime);
+  //  lrcLabel->ICE_Start_Lrc_Mask(intervaltime);
 }
 
 void ICE_Lrc::ICE_Stop_Lrc_Mask()
 {
-    lrcLabel->ICE_Stop_Lrc_Mask();
+//    lrcLabel->ICE_Stop_Lrc_Mask();
 }
 
 QString ICE_Lrc::text() const
 {
-    return lrcLabel->text();
+//    return lrcLabel->text();
 }
 
 void ICE_Lrc::setText(QString /*&*/t)
@@ -57,5 +52,5 @@ void ICE_Lrc::setText(QString /*&*/t)
     //	lrcLabel->setText(t);
     //}
 
-    lrcLabel->setText(t);
+//    lrcLabel->setText(t);
 }

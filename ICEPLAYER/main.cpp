@@ -5,7 +5,7 @@
 #include <QDir>
 #include "single_application.h"
 
-static void associateFileTypes(const QStringList &fileTypes)
+/*static void associateFileTypes(const QStringList &fileTypes)
 {
     QString displayName = QGuiApplication::applicationDisplayName();
     QString filePath = QCoreApplication::applicationFilePath();
@@ -25,14 +25,14 @@ static void associateFileTypes(const QStringList &fileTypes)
     settings.beginGroup("Command");
     settings.setValue(".", QChar('"') + QDir::toNativeSeparators(filePath) + QString("\" \"%1\""));
 }
-
+*/
 int main(int argc, char *argv[])
 {
     //QApplication::addLibraryPath("./plugins");
     //QApplication app(argc, argv);
 
     SingleApplication app(argc, argv, "iceplayer");
-
+    app.setWindowIcon(QIcon("/home/yhs/QT/iceplayer/myapp.ico"));
     //associateFileTypes(QStringList(".mp3"));
     const QStringList arguments = QCoreApplication::arguments();
 

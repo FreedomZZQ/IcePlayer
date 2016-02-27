@@ -38,5 +38,6 @@
         <file>Resources/full.png</file>
         <file>Resources/background.png</file>
         <file>Resources/about.png</file>
+        <file>myapp.ico</file>
     </qresource>
 </RCC>

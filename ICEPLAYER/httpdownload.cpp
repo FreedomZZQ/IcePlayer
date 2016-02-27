@@ -21,13 +21,14 @@ void HttpDownload::getSearchData(QString keyWords, QString limit, QString offset
     QString arg2 = "&offset=" + offset;
     QString link = API + arg0 + arg1 + arg2;
     qDebug() << link;
-    rawData.clear();
+    if(rawData.isEmpty() == false)
+        rawData.clear();
 
      startRequest(link);
     httpRequestAborted = false;
 }
 
-void HttpDownload::orderData()
+/*void HttpDownload::orderData()
 {
     QJsonDocument jsonDoc;
     QJsonObject jsonResultObj, jsonObj;
@@ -68,17 +69,21 @@ void HttpDownload::orderData()
         songList.append(singleSongInfo);
     }
 }
-
+*/
 void HttpDownload::httpFinished()
 {
-        emit downloaded(rawData, dataType);
+       emit downloaded(rawData, dataType);
         downloading = false;
-        waitDownloadUrlList.removeAt(0);
-        rawData.clear();
+        if(waitDownloadUrlList.isEmpty() == false)
+            waitDownloadUrlList.removeAt(0);
+        if(rawData.isEmpty() == false)
+            rawData.clear();
        if(waitDownloadUrlList.isEmpty() != true && downloading == false){
            downloading = true;
-           startRequest(waitDownloadUrlList.at(0).at(1));
-           dataType = waitDownloadUrlList.at(0).at(0);
+           if(waitDownloadUrlList.isEmpty() == false){
+                startRequest(waitDownloadUrlList.at(0).at(1));
+                dataType = waitDownloadUrlList.at(0).at(0);
+           }
        }
 }
 
@@ -94,7 +99,8 @@ void HttpDownload::getRawData(QString type, QString url)
             waitDownloadUrlList.append(waitDownloadUrl);
             if(downloading == false){
                 downloading = true;
-                rawData.clear();
+                if(rawData.isEmpty() == false)
+                    rawData.clear();
                 startRequest(waitDownloadUrl.at(1));
                 dataType = waitDownloadUrl.at(0);
             }

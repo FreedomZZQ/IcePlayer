@@ -9,7 +9,7 @@ class HttpDownload : public QObject
 public:
     HttpDownload();
     void startRequest(QUrl url);
-    void orderData();
+//    void orderData();
 signals:
     void downloaded(QList<QStringList> songList, int songCount);
     void downloaded(QByteArray data, QString type);

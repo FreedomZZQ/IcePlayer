@@ -32,6 +32,7 @@
 #include <QTextCodec>
 #include <QFileInfo>
 #include "movablewindow.h"
+#include "icesearch.h"
 //ö�ٲ���ģʽ
 enum ICE_Play_Mode{SINGAL, LISTCIRCLE, SINGALCIRCLE, RANDOM};
 
@@ -61,6 +62,7 @@ public slots:
     void ICE_set_vol_from_mini(int val);
 
 private slots:
+    //void showNormal();
     void showMinimized();
     //����Ŀ¼�ṹ
     void ice_open_dir();
@@ -104,6 +106,7 @@ private slots:
     void ice_min_button_clicked();
     void ice_next_button_clicked();
     void ice_last_button_clicked();
+    void ice_search_button_clicked();
     //���ò���ģʽ
     void ice_set_play_mode();
 
@@ -125,7 +128,7 @@ private slots:
     //��ȡ��ǰ����λ��
     int ice_get_play_position();
 
-
+    void ice_add_list(QStringList list);
 private:
 
     //��ʼ��������
@@ -144,7 +147,6 @@ private:
     void ice_init_menu_actions();
 
     //���ӵ������б�
-    void ice_add_list(QStringList list);
 
     //���ƴ���
     void paintEvent(QPaintEvent *event);
@@ -177,7 +179,9 @@ private:
     //�Ӵ����ж�ȡר��ͼƬ
     bool ice_get_pic_from_file();
 
+    void moveEvent(QMoveEvent *event);
 
+    void close();
     ICE_Lrc *iceLrc;
     QMap<qint64, QString> lrcMap;
 
@@ -189,6 +193,7 @@ private:
     int currentIndex;
     int playMode;
 
+    ICE_Ice_Button *searchButton;
     ICE_Ice_Button *minButton;
     ICE_Ice_Button *exitButton;
     ICE_Ice_Button *addButton;
@@ -235,6 +240,7 @@ private:
 
     ICE_About_Form *aboutForm;
     miniwindow *miniForm;
+    IceSearch *searchForm;
     NetWorker *networker;
     QString songName;
     QString songArtist;
@@ -244,6 +250,7 @@ private:
     int receiveState;
 
     int playPosition;
+    bool searchFormShow;
 };
 
 #endif

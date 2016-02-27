@@ -1,5 +1,5 @@
 #include "icelabel.h"
-
+#include <QDebug>
 IceLabel::IceLabel(QWidget *parent)
 :QLabel(parent)
 {

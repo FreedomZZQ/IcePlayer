@@ -7,8 +7,13 @@
 IceSearch::IceSearch(QWidget *parent)
     : movableWindow(parent)
 {
-     init_UI();
-     model = new SongModel;
+    init_UI();
+    downloaded1 = false;
+    downloaded2 = false;
+    cacheLableFlag = 0;
+    cacheLableTimer = new QTimer;
+    cacheLableTimer->setInterval(300);
+    model = new SongModel;
     download = new HttpDownload;
     view->setModel(model);
      delegate = new SongDelegate;
@@ -16,8 +21,9 @@ IceSearch::IceSearch(QWidget *parent)
      connect(searchButton, SIGNAL(clicked()), this, SLOT(sndReq()));
      connect(searchButton, SIGNAL(clicked()), model, SLOT(clearModel()));
      connect(nextButton, SIGNAL(clicked()), this, SLOT(sndReq()));
-     connect(view, SIGNAL(clicked(QModelIndex)), this, SLOT(itemData(QModelIndex)));
+     connect(view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(itemData(QModelIndex)));
      connect(download, SIGNAL(downloaded(QByteArray, QString)), this, SLOT(rcvRawData(QByteArray, QString)));
+     connect(cacheLableTimer, SIGNAL(timeout()), this, SLOT(cacheLableTimeOut()));
 }
 
 void IceSearch::init_UI()
@@ -37,10 +43,12 @@ void IceSearch::init_UI()
     nextButton = new QPushButton("next", this);
     nextButton->setObjectName("nextBtn");
     nextButton->setGeometry(240, 20, 50, 20) ;
-    referLable = new QLabel("", this);
-    referLable->setGeometry(40,550,500,20);
-    referLable->setText("0 "+lableFormat);
 
+    referLable = new QLabel("", this);
+    referLable->setGeometry(40,550,150,20);
+    referLable->setText("0 "+lableFormat);
+    cacheLable = new QLabel("", this);
+    cacheLable->setGeometry(250, 550, 450, 20);
 }
 
 IceSearch::~IceSearch()
@@ -58,13 +66,14 @@ void IceSearch::itemData(const QModelIndex &index)
     songUrl = str.at(4);
     download->getRawData("1", picUrl);
     download->getRawData("2", songUrl);
+
+    cacheLableTimer->start();
 }
 
 void IceSearch::sndReq()
 {
 
     QString senderName = sender()->objectName();
-   // qDebug() << senderName;
     if(senderName == "searchBtn"){
         _songCount = 0;
         _offset = 0;
@@ -82,7 +91,7 @@ void IceSearch::sndReq()
     QString arg2 = "&offset=" + QString::number(10*_offset, 10);
     QString url = API + arg0 + arg1 + arg2;
     download->getRawData("0", url );
-    //qDebug() << "send a req";
+    qDebug() << "send a req";
 }
 
 
@@ -94,6 +103,7 @@ QList<QStringList> IceSearch::jsonToLListString(QByteArray rawData)
     QJsonArray songArray, artistsArray;
     QJsonParseError err;
     QString songName, artistsName, album, picUrl, audio;
+    artistsName = "temp";
     QStringList singleSongInfo;
     QList<QStringList> songList;
     int artistsNum;
@@ -102,6 +112,7 @@ QList<QStringList> IceSearch::jsonToLListString(QByteArray rawData)
    if(err.error != QJsonParseError::NoError)
    {
        qDebug() << "get error";
+       referLable->setText("can`t access to network!");
        return songList;
    }
     jsonObj = jsonDoc.object();
@@ -110,18 +121,25 @@ QList<QStringList> IceSearch::jsonToLListString(QByteArray rawData)
     songCount = jsonResultObj.take("songCount").toInt();
     referLable->setText(QString::number(songCount)+lableFormat);
     songArray = jsonResultObj.take("songs").toArray();
+    if(songArray.isEmpty() == true)
+        return songList;
     ArraySize = songArray.count();
     for(i = 0; i < ArraySize; i++){
-        singleSongInfo.clear();
-        songName = songArray.at(i).toObject().take("name").toString();
-        artistsNum = songArray.at(i).toObject().take("artists").toArray().count();
-        artistsArray = songArray.at(i).toObject().take("artists").toArray();
-        artistsName.clear();
-        for(j = 0; j < artistsNum; j++){
-            artistsName = artistsName + artistsArray.at(j).toObject().take("name").toString() + "-";
-            if(j == artistsNum-1)
-                qDebug() << "artistsName = " << artistsName;
+        if(singleSongInfo.isEmpty() == false)
+            singleSongInfo.clear();
+            songName = songArray.at(i).toObject().take("name").toString();
+            artistsNum = songArray.at(i).toObject().take("artists").toArray().count();
+            artistsArray = songArray.at(i).toObject().take("artists").toArray();
+        if(artistsName.isEmpty() == false)
+            artistsName.clear();
+       for(j = 0; j < artistsNum; j++){
+           // qDebug() << "artistsNum != artistArray";
+           if(j < artistsArray.size() )
+                artistsName = artistsName + artistsArray.at(j).toObject().take("name").toString() + "-";
+           // if(j == artistsNum-1)
+               // qDebug() << "artistsName = " << artistsName;
         }
+
         album = songArray.at(i).toObject().take("album").toObject().take("name").toString();
         picUrl = songArray.at(i).toObject().take("album").toObject().take("picUrl").toString();
         audio = songArray.at(i).toObject().take("audio").toString();
@@ -134,16 +152,24 @@ void IceSearch::rcvRawData(QByteArray data, QString type)
 {
     QFile *file = new QFile;
     if(type == "0"){
-         model->setSongInfo(jsonToLListString(data));
+        QList<QStringList> temp = jsonToLListString(data);
+         model->setSongInfo(temp);
          return;
     }
     else if(type == "1"){
         file->setFileName(songInfo.at(0) +QString(".png"));
         songInfo.removeAt(0);
+        downloaded1 = true;
     }
     else if(type == "2"){
          file->setFileName(songInfo.at(0) + QString(".mp3"));
          songInfo.removeAt(0);
+         downloaded2 = true;
+    }
+    if(downloaded1 && downloaded2){
+        cacheLableTimer->stop();
+        downloaded1 = downloaded2 = false;
+        cacheLable->setText("worked perfectly! downloaded completely!");
     }
     if (!file->open(QIODevice::WriteOnly)) {
         QMessageBox::information(this, tr("HTTP"),
@@ -169,4 +195,20 @@ void IceSearch::paintEvent(QPaintEvent *event)
 {
     QPainter p(this);
     p.drawPixmap(0, 0,this->width(), this->height(),  QPixmap(":/Resources/background.png"));
+}
+
+void IceSearch::cacheLableTimeOut()
+{
+        if(cacheLableFlag == 0){
+            cacheLable->setText("Be downloading song.");
+            cacheLableFlag+=1;
+        }
+        else if(cacheLableFlag == 1){
+            cacheLable->setText("Be downloading song..");
+            cacheLableFlag+=1;
+        }
+        else if(cacheLableFlag == 2){
+            cacheLable->setText("Be downloading song...");
+            cacheLableFlag=0;
+        }
 }

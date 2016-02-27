@@ -30,5 +30,8 @@ QVariant SongModel::data(const QModelIndex &index, int role) const
 
 void SongModel::clearModel()
 {
+    /* if modelSongInfo `s item is Empty, then you invoke clear. program crash*/
+    if(modelSongInfo.isEmpty())
+        return;
     modelSongInfo.clear();
 }
