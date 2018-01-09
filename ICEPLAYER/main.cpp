@@ -44,7 +44,6 @@ int main(int argc, char *argv[])
 		player->ICE_Open_Music(arguments.at(1));
 
 	player->show();
-
 	
 	return app.exec();
 }
