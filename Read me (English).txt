@@ -1,0 +1,23 @@
+V2.0 Main Update
+
+New features:
+- Network lyrics, album picture acquisition (saved in the song directory, file name and song with the same name).
+- Drag and drop songs can now add multiple songs at a time, and can automatically identify the file type, only add mp3 files. When dragging the progress bar, release the mouse to update the playback progress, no more harsh sounds.
+- The font inside the player is changed to Microsoft Yahei.
+- Playlist display optimization.
+- Desktop lyrics display effect, drag effect optimization.
+- The software is changed to a pure green version, which can be used after decompression. It can be specified as the default mp3 player in "Open Mode".
+- Optimized memory usage, although the network module is added, but the resource consumption is not significantly improved.
+
+Fixed some known bugs:
+- Corrected some Chinese font garbled problems (if there is garbled welcome to feedback).
+- Fixed the problem that the play button is sometimes inconsistent with the playback status.
+- Fixed known crash bugs.
+- Fixed an issue where the status of "Failed" in the playlist could not be automatically released.
+- Fixed the problem that desktop lyrics sometimes string words.
+- Fixed the problem that sometimes the status of the play button is inconsistent with the main interface in the mini mode.
+
+Download link:
+
+(Free installation green version) Baidu cloud disk download link: http://pan.baidu.com/s/1o6if5xS 
+Password: tjfi
